@@ -1,0 +1,20 @@
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.20;
+
+contract TokenBazaar {
+    struct Listing {
+        address seller;
+        uint256 price;
+    }
+
+    mapping(uint256 => Listing) public listings;
+    uint256 public nextId;
+
+    event TokenListed(uint256 id, address seller, uint256 price);
+
+    function listToken(uint256 price) external {
+        listings[nextId] = Listing(msg.sender, price);
+        emit TokenListed(nextId, msg.sender, price);
+        nextId++;
+    }
+}
